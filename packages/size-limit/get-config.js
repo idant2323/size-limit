@@ -3,75 +3,9 @@ let { cosmiconfig } = require('cosmiconfig')
 let globby = require('globby')
 let bytes = require('bytes')
 
+let { toAbsolute, toName } = require('./lib/path-utils')
+let { checkChecks } = require('./lib/config-validator')
 let SizeLimitError = require('./size-limit-error')
-
-let OPTIONS = {
-  name: true,
-  path: true,
-  limit: true,
-  module: true,
-  entry: 'webpack',
-  config: 'webpack',
-  webpack: 'webpack',
-  ignore: 'webpack',
-  import: 'webpack',
-  gzip: ['webpack', 'file'],
-  running: 'time',
-  disableModuleConcatenation: 'webpack',
-  brotli: 'webpack'
-}
-
-function isStrings (value) {
-  if (!Array.isArray(value)) return false
-  return value.every(i => typeof i === 'string')
-}
-
-function isStringsOrUndefined (value) {
-  let type = typeof value
-  return type === 'undefined' || type === 'string' || isStrings(value)
-}
-
-function checkChecks (plugins, checks) {
-  if (!Array.isArray(checks)) {
-    throw new SizeLimitError('noArrayConfig')
-  }
-  if (checks.length === 0) {
-    throw new SizeLimitError('emptyConfig')
-  }
-  for (let check of checks) {
-    if (typeof check !== 'object') {
-      throw new SizeLimitError('noObjectCheck')
-    }
-    if (!isStringsOrUndefined(check.path)) {
-      throw new SizeLimitError('pathNotString')
-    }
-    if (!isStringsOrUndefined(check.entry)) {
-      throw new SizeLimitError('entryNotString')
-    }
-    for (let opt in check) {
-      let available = OPTIONS[opt]
-      if (typeof available === 'string') {
-        if (!plugins.has(available)) {
-          throw new SizeLimitError('pluginlessConfig', opt, available)
-        }
-      } else if (Array.isArray(available)) {
-        if (available.every(i => !plugins.has(i))) {
-          throw new SizeLimitError('multiPluginlessConfig', opt, ...available)
-        }
-      } else if (available !== true) {
-        throw new SizeLimitError('unknownOption', opt)
-      }
-    }
-  }
-}
-
-function toAbsolute (file, cwd) {
-  return isAbsolute(file) ? file : join(cwd, file)
-}
-
-function toName (files, cwd) {
-  return files.map(i => i.startsWith(cwd) ? relative(cwd, i) : i).join(', ')
-}
 
 module.exports = async function getConfig (plugins, process, args, pkg) {
   let config = {
@@ -158,3 +92,4 @@ module.exports = async function getConfig (plugins, process, args, pkg) {
 
   return config
 }
+
