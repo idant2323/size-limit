@@ -1,19 +1,22 @@
-let chalk = require('chalk')
-let bytes = require('bytes')
 
 function createJsonReporter (process) {
   function print (data) {
-    process.stdout.write(JSON.stringify(data, null, 2) + '\n')
+    process.stdout.write(JSON.stringify(data, null, 2) + '
+')
   }
 
   return {
     error (err) {
-      print({ error: err.stack })
+      print({
+        name: err.name,
+        message: err.message,
+        stack: err.stack
+      })
     },
 
     results (plugins, config) {
       print(config.checks.map(i => {
-        let result = { name: i.name }
+        const result = { name: i.name }
         if (typeof i.passed !== 'undefined') result.passed = i.passed
         if (typeof i.size !== 'undefined') result.size = i.size
         if (typeof i.runTime !== 'undefined') result.running = i.runTime
@@ -25,8 +28,12 @@ function createJsonReporter (process) {
 }
 
 function createHumanReporter (process) {
+  const chalk = require('chalk')
+  const bytes = require('bytes')
   function print (...lines) {
-    process.stdout.write('  ' + lines.join('\n  ') + '\n')
+    process.stdout.write('  ' + lines.join('
+  ') + '
+')
   }
 
   function formatBytes (size) {
@@ -35,41 +42,45 @@ function createHumanReporter (process) {
 
   function formatTime (seconds) {
     if (seconds >= 1) {
-      return (Math.ceil(seconds * 10) / 10) + ' s'
+      return seconds.toFixed(2) + ' s'
     } else {
-      return Math.ceil(seconds * 1000) + ' ms'
+      return (seconds * 1000).toFixed(0) + ' ms'
     }
   }
 
   return {
     error (err) {
       if (err.name === 'SizeLimitError') {
-        let msg = err.message
+        const msg = err.message
           .split('. ')
           .map(i => i.replace(/\*([^*]+)\*/g, chalk.yellow('$1')))
-          .join('.\n        ')
+          .join('.
+        ')
         process.stderr.write(
-          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(msg) }\n`
+          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(msg) }
+`
         )
         if (err.example) {
           process.stderr.write(
-            '\n' + err.example
+            '
+' + err.example
               .replace(/("[^"]+"):/g, chalk.green('$1') + ':')
               .replace(/: ("[^"]+")/g, ': ' + chalk.yellow('$1'))
           )
         }
       } else {
         process.stderr.write(
-          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(err.stack) }\n`
+          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(err.stack) }
+`
         )
       }
     },
 
     results (plugins, config) {
       print('')
-      for (let check of config.checks) {
-        let unlimited = typeof check.passed === 'undefined'
-        let rows = []
+      for (const check of config.checks) {
+        const unlimited = typeof check.passed === 'undefined'
+        const rows = []
 
         if (config.checks.length > 1) {
           print(chalk.bold(check.name))
@@ -121,10 +132,10 @@ function createHumanReporter (process) {
           )
         }
 
-        let max0 = Math.max(...rows.map(row => row[0].length))
-        let max1 = Math.max(...rows.map(row => row[1].length))
+        const max0 = Math.max(...rows.map(row => row[0].length))
+        const max1 = Math.max(...rows.map(row => row[1].length))
 
-        for (let [name, value, note] of rows) {
+        for (const [name, value, note] of rows) {
           let str = (name + ':').padEnd(max0 + 1) + ' '
           if (note) value = value.padEnd(max1)
           value = chalk.bold(value)
