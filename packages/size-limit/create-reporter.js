@@ -40,9 +40,9 @@ function createHumanReporter (process) {
 
   function formatTime (seconds) {
     if (seconds >= 1) {
-      return (Math.ceil(seconds * 10) / 10) + ' s'
+      return seconds.toFixed(2) + ' s'
     } else {
-      return Math.ceil(seconds * 1000) + ' ms'
+      return (seconds * 1000).toFixed(0) + ' ms'
     }
   }
 
