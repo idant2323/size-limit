@@ -1,3 +1,4 @@
+
 function createJsonReporter (process) {
   function print (data) {
     process.stdout.write(JSON.stringify(data, null, 2) + '
