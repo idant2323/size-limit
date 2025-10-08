@@ -1,6 +1,3 @@
-let chalk = require('chalk')
-let bytes = require('bytes')
-
 function createJsonReporter (process) {
   function print (data) {
     process.stdout.write(JSON.stringify(data, null, 2) + '\n')
@@ -25,8 +22,12 @@ function createJsonReporter (process) {
 }
 
 function createHumanReporter (process) {
+  let chalk = require('chalk')
+  let bytes = require('bytes')
   function print (...lines) {
-    process.stdout.write('  ' + lines.join('\n  ') + '\n')
+    process.stdout.write('  ' + lines.join('
+  ') + '
+')
   }
 
   function formatBytes (size) {
@@ -47,20 +48,24 @@ function createHumanReporter (process) {
         let msg = err.message
           .split('. ')
           .map(i => i.replace(/\*([^*]+)\*/g, chalk.yellow('$1')))
-          .join('.\n        ')
+          .join('.
+        ')
         process.stderr.write(
-          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(msg) }\n`
+          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(msg) }
+`
         )
         if (err.example) {
           process.stderr.write(
-            '\n' + err.example
+            '
+' + err.example
               .replace(/("[^"]+"):/g, chalk.green('$1') + ':')
               .replace(/: ("[^"]+")/g, ': ' + chalk.yellow('$1'))
           )
         }
       } else {
         process.stderr.write(
-          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(err.stack) }\n`
+          `${ chalk.bgRed.black(' ERROR ') } ${ chalk.red(err.stack) }
+`
         )
       }
     },
