@@ -5,7 +5,11 @@ function createJsonReporter (process) {
 
   return {
     error (err) {
-      print({ error: err.stack })
+      print({
+        name: err.name,
+        message: err.message,
+        stack: err.stack
+      })
     },
 
     results (plugins, config) {
