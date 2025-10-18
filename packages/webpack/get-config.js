@@ -92,7 +92,9 @@ module.exports = async function getConfig (limitConfig, check, output) {
   if (limitConfig.why) {
     config.plugins.push(new BundleAnalyzerPlugin({
       openAnalyzer: process.env.NODE_ENV !== 'test',
-      analyzerMode: process.env.NODE_ENV === 'test' ? 'static' : 'server',
+      analyzerMode: process.env.NODE_ENV === 'test' || limitConfig.watch
+        ? 'static'
+        : 'server',
       defaultSizes: check.gzip === false ? 'parsed' : 'gzip',
       analyzerPort: 8888 + limitConfig.checks.findIndex(i => i === check)
     }))

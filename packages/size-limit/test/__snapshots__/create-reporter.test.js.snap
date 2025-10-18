@@ -18,68 +18,68 @@ exports[`renders JSON results 1`] = `
 
 exports[`renders config-less result 1`] = `
 "  
-  [31mTotal time limit has exceeded[39m
-  Time limit:   [31m[1m500 ms[22m[39m
-  Size:         [31m[1m1000 B[22m[39m
-  Loading time: [31m[1m200 ms[22m[39m [90mon slow 3G[39m
-  Running time: [31m[1m300 ms[22m[39m [90mon Snapdragon 410[39m
-  Total time:   [31m[1m500 ms[22m[39m
+  Total time limit has exceeded
+  Time limit:   500 ms
+  Size:         1000 B
+  Loading time: 200 ms on slow 3G
+  Running time: 300 ms on Snapdragon 410
+  Total time:   500 ms
   
-  [33mTry to reduce size or increase limit[39m
+  Try to reduce size or increase limit
 "
 `;
 
 exports[`renders failed results 1`] = `
 "  
-  [1mok[22m
-  Size limit: [32m[1m100 KB[22m[39m
-  Size:       [32m[1m100 KB[22m[39m [90mgzipped[39m
+  ok
+  Size limit: 100 KB
+  Size:       100 KB gzipped
   
-  [1msmall fail[22m
-  [31mPackage size limit has exceeded by 1 B[39m
-  Size limit: [31m[1m102400 B[22m[39m
-  Size:       [31m[1m102401 B[22m[39m [90mgzipped[39m
+  small fail
+  Package size limit has exceeded by 1 B
+  Size limit: 102400 B
+  Size:       102401 B gzipped
   
-  [1mbig fail[22m
-  [31mPackage size limit has exceeded by 100 B[39m
-  Size limit: [31m[1m100 KB[22m[39m
-  Size:       [31m[1m100.1 KB[22m[39m [90mgzipped[39m
+  big fail
+  Package size limit has exceeded by 100 B
+  Size limit: 100 KB
+  Size:       100.1 KB gzipped
   
-  [33mTry to reduce size or increase limit in [1m\\"size-limit\\"[22m section of [1mpackage.json[22m[39m
+  Try to reduce size or increase limit in \\"size-limit\\" section of package.json
 "
 `;
 
 exports[`renders results 1`] = `
 "  
-  [1mlimitless[22m
-  Size:         [1m10 B  [22m [90mwith given webpack configuration[39m
-  Loading time: [1m100 ms[22m [90mon slow 3G[39m
-  Running time: [1m500 ms[22m [90mon Snapdragon 410[39m
-  Total time:   [1m600 ms[22m
+  limitless
+  Size:         10 B   with given webpack configuration
+  Loading time: 100 ms on slow 3G
+  Running time: 500 ms on Snapdragon 410
+  Total time:   600 ms
   
-  [1msize[22m
-  Size limit:   [32m[1m100 KB[22m[39m
-  Size:         [32m[1m100 KB[22m[39m [90mwith all dependencies, minified and gzipped[39m
-  Loading time: [32m[1m1 s   [22m[39m [90mon slow 3G[39m
-  Running time: [32m[1m2 s   [22m[39m [90mon Snapdragon 410[39m
-  Total time:   [32m[1m3 s[22m[39m
+  size
+  Size limit:   100 KB
+  Size:         100 KB with all dependencies, minified and gzipped
+  Loading time: 1 s    on slow 3G
+  Running time: 2 s    on Snapdragon 410
+  Total time:   3 s
   
-  [1mtime[22m
-  Time limit:   [32m[1m4 s[22m[39m
-  Size:         [32m[1m100 KB[22m[39m [90mwith all dependencies and minified[39m
-  Loading time: [32m[1m1 s   [22m[39m [90mon slow 3G[39m
-  Running time: [32m[1m2 s   [22m[39m [90mon Snapdragon 410[39m
-  Total time:   [32m[1m3 s[22m[39m
+  time
+  Time limit:   4 s
+  Size:         100 KB with all dependencies and minified
+  Loading time: 1 s    on slow 3G
+  Running time: 2 s    on Snapdragon 410
+  Total time:   3 s
   
 "
 `;
 
 exports[`renders single result 1`] = `
 "  
-  [31mPackage size limit has exceeded by 1 B[39m
-  Size limit: [31m[1m100 B[22m[39m
-  Size:       [31m[1m101 B[22m[39m
+  Package size limit has exceeded by 1 B
+  Size limit: 100 B
+  Size:       101 B
   
-  [33mTry to reduce size or increase limit at [1m.size-limit.json[22m[39m
+  Try to reduce size or increase limit at .size-limit.json
 "
 `;

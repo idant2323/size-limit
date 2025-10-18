@@ -33,6 +33,65 @@
     "webpack-bundle-analyzer": "^3.7.0"
   },
   "devDependencies": {
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "@logux/eslint-config": "^36.1.2",
+    "@size-limit/dual-publish": "^4.4.5",
+    "@size-limit/preset-small-lib": "^4.4.5",
+    "check-dts": "^0.3.0",
+    "dual-publish": "^0.10.1",
+    "eslint": "^6.8.0",
+    "eslint-ci": "^1.0.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prefer-let": "^1.0.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-security": "^1.4.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-unicorn": "^18.0.1",
+    "husky": "^4.2.5",
+    "jest": "^25.4.0",
+    "jest-ci": "^0.1.1",
+    "lint-staged": "^10.1.7",
+    "rimraf": "^3.0.2",
+    "size-limit": "^4.4.5",
+    "yaspeller-ci": "^1.0.2"
+  },
+  "scripts": {
+    "spell": "yaspeller-ci *.md",
+    "clean": "rimraf coverage/",
+    "test": "jest-ci --coverage && eslint-ci . && check-dts && size-limit && yarn spell"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.md": "yaspeller",
+    "*.js": "eslint"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageThreshold": {
+      "global": {
+        "statements": 100
+      }
+    }
+  },
+  "eslintConfig": {
+    "extends": "@logux/eslint-config"
+  },
+  "yaspeller": {
+    "lang": "en",
+    "ignoreCapitalization": true,
+    "ignoreText": [
+      " \\(by [^)]+\\)."
+    ]
+  },
+  "sharec": {
+    "config": "@logux/sharec-config",
+    "version": "0.6.4"
   }
 }

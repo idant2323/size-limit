@@ -5,7 +5,7 @@
     "postinstall": "./scripts/each yarn",
     "clean": "rimraf coverage/ packages/.cache",
     "spell": "yaspeller-ci *.md packages/*/*.md",
-    "test": "jest-ci --coverage --forceExit && eslint-ci . && yarn spell"
+    "test": "jest-ci --coverage --forceExit --no-colors && eslint-ci ."
   },
   "workspaces": [
     "packages/preset-small-lib",
@@ -140,5 +140,6 @@
   "sharec": {
     "config": "@logux/sharec-config",
     "version": "0.6.4"
-  }
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }

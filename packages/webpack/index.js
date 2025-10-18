@@ -2,7 +2,7 @@ let SizeLimitError = require('size-limit/size-limit-error')
 let { promisify } = require('util')
 let { nanoid } = require('nanoid')
 let { tmpdir } = require('os')
-let { join } = require('path')
+let { join, dirname } = require('path')
 let readdir = promisify(require('fs').readdir)
 let rimraf = promisify(require('rimraf'))
 
@@ -15,7 +15,7 @@ const WEBPACK_EMPTY_PROJECT_GZIP = 461
 const WEBPACK_EMPTY_PROJECT_IMPORT = 965
 const WEBPACK_EMPTY_PROJECT_IMPORT_GZIP = 473
 
-function getFiles (stats, check) {
+function getFiles (stats, check, config) {
   let entries = { }
   if (check.entry) {
     for (let i of check.entry) {
@@ -35,7 +35,7 @@ function getFiles (stats, check) {
       if (check.webpackConfig.output && check.webpackConfig.output.path) {
         return join(check.webpackConfig.output.path, i)
       } else {
-        return join(process.cwd(), 'dist', i)
+        return join(dirname(config.configPath), 'dist', i)
       }
     })
 }
@@ -83,7 +83,7 @@ let self = {
   wait40: 'Adding to empty webpack project',
   async step40 (config, check) {
     if (check.webpackConfig) {
-      check.bundles = getFiles(await runWebpack(check), check)
+      check.bundles = getFiles(await runWebpack(check), check, config)
     }
   },
 
