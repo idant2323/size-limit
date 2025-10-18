@@ -56,6 +56,7 @@ module.exports = async process => {
     }
 
     config = await getConfig(plugins, process, args, pkg)
+    config.watch = hasArg('--watch')
 
     let calcAndShow = async () => {
       await calc(plugins, config, ora)
