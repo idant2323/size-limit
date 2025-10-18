@@ -102,4 +102,3 @@ module.exports = async function getConfig (limitConfig, check, output) {
 
   return config
 }
-
