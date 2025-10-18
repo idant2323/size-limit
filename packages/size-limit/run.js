@@ -29,7 +29,8 @@ module.exports = async process => {
   }
   let reporter = createReporter(process, hasArg('--json'))
   let help = createHelp(process)
-  let config, args
+  let config = {}
+  let args = {}
 
   try {
     if (hasArg('--version')) {
