@@ -44,7 +44,7 @@ module.exports = async process => {
     }
 
     if (!pkg || !pkg.packageJson) {
-      throw new SizeLimitError('noPackage', 'Please create a package.json file to proceed.')
+      throw new SizeLimitError('noPackage', 'Please create a package.json file to proceed.');
     }
 
     args = parseArgs(plugins, process.argv)
