@@ -2,7 +2,7 @@ module.exports = {
 
   results (process, args, config) {
     if (args && args.debug) {
-      process.stdout.write(JSON.stringify(config, null, 2) + '\n')
+      process.stdout.write('Debug Results:\n' + JSON.stringify(config, null, 2) + '\n')
     }
   },
 
